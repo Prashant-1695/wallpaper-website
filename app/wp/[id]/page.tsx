@@ -1,5 +1,5 @@
 // app/wp/[id]/page.tsx
-import { searchCloudinaryImageByFilename } from "@/config/cloudinary";
+import { getCloudinaryImageById } from "@/config/cloudinary";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ export default async function WallpaperPage({
 }) {
   const { id } = await params;
 
-  const wall = await searchCloudinaryImageByFilename(id);
+  const wall = await getCloudinaryImageById(id);
 
   if (!wall) {
     notFound();
@@ -32,7 +32,7 @@ export default async function WallpaperPage({
         />
         <div className="mt-4">
           <h1 className="text-2xl font-bold">Wallpaper Details</h1>
-          <p className="my-2">Name: {wall.filename}</p>
+          <p className="my-2">Name: {wall.display_name}</p>
           <p>
             Resolution: {wall.width} x {wall.height}
           </p>
