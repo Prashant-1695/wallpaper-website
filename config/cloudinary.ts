@@ -42,3 +42,23 @@ export async function searchCloudinaryImageByFilename(filename: string) {
     return null;
   }
 }
+
+// Function to get a Cloudinary image by its public ID
+export async function getCloudinaryImageById(publicId: string) {
+  try {
+    const result = await cloudinary.api.resource(publicId, {
+      resource_type: "image",
+    });
+
+    return {
+      public_id: result.public_id,
+      secure_url: result.secure_url,
+      display_name: result.original_filename,
+      width: result.width,
+      height: result.height,
+    };
+  } catch (error) {
+    console.error("Error fetching Cloudinary image by ID:", error);
+    return null;
+  }
+}
