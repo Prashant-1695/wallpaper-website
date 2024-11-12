@@ -8,6 +8,8 @@ const WallpaperGallery = () => {
     public_id: string;
     display_name: string;
     secure_url: string;
+    height: number;
+    width: number;
   }
 
   const [images, setImages] = useState<Image[]>([]);
@@ -61,6 +63,8 @@ const WallpaperGallery = () => {
             fileName={image.public_id}
             imagePath={image.secure_url}
             publicId={image.public_id}
+            height={image.height}
+            width={image.width}
           />
         ))}
       </div>

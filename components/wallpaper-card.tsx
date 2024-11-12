@@ -7,12 +7,23 @@ interface WallpaperCardProps {
   imagePath: string;
   publicId: string;
   fileName?: string;
+  height: number;
+  width: number;
 }
+
+const getResolutionTag = (width: number, height: number) => {
+  if (width >= 7680 && height >= 4320) return "8K";
+  if (width >= 3840 && height >= 2160) return "4K";
+  if (width >= 1920 && height >= 1080) return "1080p";
+  return `${width}x${height}`;
+};
 
 const WallpaperCard = ({
   imagePath,
   publicId,
   fileName,
+  height,
+  width,
 }: WallpaperCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // New loading state
@@ -54,11 +65,14 @@ const WallpaperCard = ({
         >
           {fileName && (
             <p className="absolute p-5 bottom-0 left-0">
-              {fileName.length > 25
-                ? fileName.substring(0, 25) + " ..."
+              {fileName.length > 20
+                ? fileName.substring(0, 20) + " ..."
                 : fileName}
             </p>
           )}
+          <div className="absolute bottom-2 right-2 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded">
+            {getResolutionTag(width, height)}
+          </div>
 
           {/* Top Actions */}
           <div className="absolute top-4 right-4 flex gap-2">
