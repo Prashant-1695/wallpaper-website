@@ -15,7 +15,7 @@ const WallpaperGallery = () => {
   const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const limit = 10; // Number of images per page
+  const limit = 24; // Number of images per page
 
   const fetchImages = async (page: number) => {
     try {
@@ -72,13 +72,13 @@ const WallpaperGallery = () => {
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}
-          className="px-4 py-2 text-white bg-blue-500 rounded-md mr-2"
+          className="px-4 py-2 text-white bg-blue-500 rounded-md mr-2 disabled:bg-blue-300"
         >
           Previous
         </button>
         <button
           onClick={handleNextPage}
-          className="px-4 py-2 text-white bg-blue-500 rounded-md"
+          className="px-4 py-2 text-white bg-blue-500 rounded-md disabled:bg-blue-300"
         >
           Next
         </button>
