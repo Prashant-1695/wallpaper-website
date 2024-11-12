@@ -53,7 +53,7 @@ export async function getCloudinaryImageById(publicId: string) {
     return {
       public_id: result.public_id,
       secure_url: result.secure_url,
-      display_name: result.original_filename,
+      display_name: result.display_name,
       width: result.width,
       height: result.height,
     };
