@@ -26,7 +26,7 @@ const WallpaperCard = ({
   width,
 }: WallpaperCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // New loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Link href={`/wp/${publicId}`}>
@@ -51,26 +51,37 @@ const WallpaperCard = ({
             alt="Wallpaper"
             className={`w-full h-full object-cover transition-opacity duration-300 ${
               isLoading ? "opacity-0" : "opacity-100"
-            }`} // Adjust opacity based on loading state
-            onLoad={() => setIsLoading(false)} // Set loading to false when the image loads
-            onError={() => setIsLoading(false)} // Set loading to false if there's an error
+            }`}
+            onLoad={() => setIsLoading(false)}
+            onError={() => setIsLoading(false)}
           />
         </div>
 
         {/* Overlay that appears on hover */}
         <div
-          className={`absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 opacity-0 transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 transition-opacity duration-300 ${
             isHovered ? "opacity-100" : ""
           }`}
         >
+          {/* Display Name */}
           {fileName && (
-            <p className="absolute p-5 bottom-0 left-0">
+            <p
+              className={`absolute p-5 bottom-0 left-0 transition-opacity duration-300 ${
+                isHovered ? "opacity-100" : "opacity-100 md:opacity-0"
+              }`}
+            >
               {fileName.length > 20
                 ? fileName.substring(0, 20) + " ..."
                 : fileName}
             </p>
           )}
-          <div className="absolute bottom-2 right-2 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded">
+
+          {/* Resolution Tag */}
+          <div
+            className={`absolute bottom-2 right-2 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded transition-opacity duration-300 ${
+              isHovered ? "opacity-100" : "opacity-100 md:opacity-0"
+            }`}
+          >
             {getResolutionTag(width, height)}
           </div>
 
