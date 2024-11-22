@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudinaryImages } from "@/config/cloudinary";
 
-export async function GET(request: Request) {
+export async function GET() {
     const images = await getCloudinaryImages();
     return NextResponse.json(images.length, {
         headers: {
