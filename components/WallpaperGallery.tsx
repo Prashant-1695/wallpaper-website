@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import WallpaperCard from "./wallpaper-card";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const WallpaperGallery = () => {
   interface Image {
@@ -14,13 +16,19 @@ const WallpaperGallery = () => {
 
   const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [totalImages, setTotalImages] = useState(0);
   const limit = 24; // Number of images per page
 
-  const fetchImages = async (page: number) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+
+  const fetchImages = async (pageNum: number) => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/images?page=${page}&limit=${limit}`);
+      const response = await fetch(
+        `/api/images?page=${pageNum}&limit=${limit}`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -33,13 +41,33 @@ const WallpaperGallery = () => {
     }
   };
 
+  const getImagesLength = async () => {
+    try {
+      const res = await fetch("/api/getTotalImages");
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await res.json();
+      setTotalImages(data);
+    } catch (error) {
+      console.error("Failed to fetch total images:", error);
+    }
+  };
+  useEffect(() => {
+    getImagesLength();
+  }, []);
+
+  const isLastPage = totalImages <= page * limit;
+
   useEffect(() => {
     fetchImages(page);
-  }, [page]);
+  }, [page]); 
 
-  const handleNextPage = () => setPage((prevPage) => prevPage + 1);
-  const handlePreviousPage = () =>
-    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  const handleNextPage = () => router.push(`/?page=${page + 1}`);
+  const handlePreviousPage = () => {
+    const prevPage = Math.max(page - 1, 1);
+    router.push(`/?page=${prevPage}`);
+  };
 
   if (loading) {
     return (
@@ -50,7 +78,27 @@ const WallpaperGallery = () => {
   }
 
   if (!images.length) {
-    return <p>No wallpapers found.</p>;
+    return (
+      <>
+        <p className="text-3xl font-semibold">No wallpapers found.</p>
+
+        <div className="flex gap-3 flex-row mt-4">
+          <p
+            onClick={router.back}
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md cursor-pointer transition-all duration-300"
+          >
+            {/* TODO: Add icons */}
+            Go back
+          </p>
+          <Link
+            href={"/"}
+            className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md cursor-pointer transition-all duration-300"
+          >
+            Go Home
+          </Link>
+        </div>
+      </>
+    );
   }
 
   return (
@@ -78,6 +126,7 @@ const WallpaperGallery = () => {
         </button>
         <button
           onClick={handleNextPage}
+          disabled={isLastPage}
           className="px-4 py-2 text-white bg-blue-500 rounded-md disabled:bg-blue-300"
         >
           Next
