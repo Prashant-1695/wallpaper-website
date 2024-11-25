@@ -5,6 +5,7 @@ import {
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { FiArrowRight, FiArrowLeft } from "react-icons/fi"; // Import the icons
 
 export default async function WallpaperPage({
   params,
@@ -67,7 +68,7 @@ export default async function WallpaperPage({
               href={`/wp/${previousImage.public_id}`}
               className="absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
             >
-              &lt;
+              <FiArrowLeft /> {/* Use FiArrowLeft icon */}
             </Link>
           )}
           {nextImage && (
@@ -75,7 +76,7 @@ export default async function WallpaperPage({
               href={`/wp/${nextImage.public_id}`}
               className="absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
             >
-              &gt;
+              <FiArrowRight /> {/* Use FiArrowRight icon */}
             </Link>
           )}
         </div>
