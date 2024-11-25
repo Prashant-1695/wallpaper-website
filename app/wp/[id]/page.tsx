@@ -54,7 +54,7 @@ export default async function WallpaperPage({
           <a
             href={wall.secure_url}
             download
-            className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 relative z-10" // Add z-10 to bring it above other elements
           >
             Download Wallpaper
           </a>
