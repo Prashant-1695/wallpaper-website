@@ -156,7 +156,7 @@
 }
 
 @media (min-width: 769px) {
-  .md\:opacity- 0 {
+  .md\:opacity-0 {
     opacity: 0; /* Hide on desktop by default */
   }
 }

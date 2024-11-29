@@ -5,7 +5,7 @@ import {
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowRight, FiArrowLeft } from "react-icons/fi"; // Import the icons
+import { FiArrowRight, FiArrowLeft, FiDownload } from "react-icons/fi";
 
 export default async function WallpaperPage({
   params,
@@ -52,33 +52,35 @@ export default async function WallpaperPage({
           <div className="mt-4">
             <p className="text-lg font-semibold">Likes: {likes}</p>
           </div>
-          <a
-            href={wall.secure_url}
-            download
-            className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 relative z-10" // Add z-10 to bring it above other elements
-          >
-            Download Wallpaper
+          <a href={wall.secure_url} download>
+            <div className="mt-8 flex justify-start">
+              <button
+                type="button"
+                className="inline-flex items-center px-8 py-3 rounded-full bg-blue-500 text-white font-bold transition-all duration-500 hover:bg-blue-300 hover:shadow-lg hover:scale-110 active:bg-blue-700 active:scale-95 active:shadow-none relative z-10"
+              >
+                <FiDownload className="mr-2" /> Download
+              </button>
+            </div>
           </a>
-        </div>
-
-        {/* Navigation Buttons */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          {previousImage && (
-            <Link
-              href={`/wp/${previousImage.public_id}`}
-              className="absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
-            >
-              <FiArrowLeft /> {/* Use FiArrowLeft icon */}
-            </Link>
-          )}
-          {nextImage && (
-            <Link
-              href={`/wp/${nextImage.public_id}`}
-              className="absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
-            >
-              <FiArrowRight /> {/* Use FiArrowRight icon */}
-            </Link>
-          )}
+          {/* Navigation Buttons */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {previousImage && (
+              <Link
+                href={`/wp/${previousImage.public_id}`}
+                className="absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
+              >
+                <FiArrowLeft /> {/* Use FiArrowLeft icon */}
+              </Link>
+            )}
+            {nextImage && (
+              <Link
+                href={`/wp/${nextImage.public_id}`}
+                className="absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
+              >
+                <FiArrowRight /> {/* Use FiArrowRight icon */}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
