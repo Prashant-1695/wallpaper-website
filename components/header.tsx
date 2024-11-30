@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-black shadow-md">
+    <header className="top-0 z-50 bg-black shadow-md">
       {/* Logo at the top left corner */}
       <div className="p-4 bg-black">
         <Link
