@@ -34,7 +34,7 @@ export default async function WallpaperPage({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto relative">
+      <div className="max-w-4xl mx-auto relative group">
         <Image
           src={wall.secure_url}
           alt="Wallpaper"
@@ -64,10 +64,11 @@ export default async function WallpaperPage({
           </a>
           {/* Navigation Buttons */}
           <div className="absolute inset-0 flex items-center justify-center">
+            {/* Mobile devices always show */}
             {previousImage && (
               <Link
                 href={`/wp/${previousImage.public_id}`}
-                className="absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
+                className="md:hidden absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
               >
                 <FiArrowLeft /> {/* Use FiArrowLeft icon */}
               </Link>
@@ -75,7 +76,24 @@ export default async function WallpaperPage({
             {nextImage && (
               <Link
                 href={`/wp/${nextImage.public_id}`}
-                className="absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
+                className="md:hidden absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
+              >
+                <FiArrowRight /> {/* Use FiArrowRight icon */}
+              </Link>
+            )}
+            {/* Large screens only show on hover */}
+            {previousImage && (
+              <Link
+                href={`/wp/${previousImage.public_id}`}
+                className="hidden md:block absolute top-1/4 sm:top-1/3 left-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 group-hover:block opacity-0 group-hover:opacity-100"
+              >
+                <FiArrowLeft /> {/* Use FiArrowLeft icon */}
+              </Link>
+            )}
+            {nextImage && (
+              <Link
+                href={`/wp/${nextImage.public_id}`}
+                className="hidden md:block absolute top-1/4 sm:top-1/3 right-4 transform -translate-y-1/2 text-4xl text-white bg-gray-800 bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200 group-hover:block opacity-0 group-hover:opacity-100"
               >
                 <FiArrowRight /> {/* Use FiArrowRight icon */}
               </Link>
