@@ -72,18 +72,7 @@ const WallpaperGallery = () => {
   if (loading) {
     return (
       <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-        <svg
-          className="w-[3.25em] origin-center animate-rotate4"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 50 50"
-        >
-          <circle
-            className="fill-none stroke-blue-500 stroke-[2] stroke-dasharray-[1,200] stroke-dashoffset-[0] stroke-linecap-round animate-dash4"
-            cx="25"
-            cy="25"
-            r="20"
-          ></circle>
-        </svg>
+        <div className="w-8 h-8 border-4 border-transparent border-t-blue-500 border-t-4 rounded-full animate-spin"></div>
       </div>
     );
   }
